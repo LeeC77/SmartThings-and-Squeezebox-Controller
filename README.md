@@ -31,47 +31,8 @@ The bridge program also expects the squeeze box server to be on 192.168.1.85:909
 It’s a good idea to statically assign the IP address of your RasPi and ST Hub so that the addresses don’t move round on power cycle, I did this in my router.
 Make a note of the directory path and name of your bridge program. Mine was:
 /home/pi/winshare/SBBridge/ SBBridge.py
-Now install the JSONSlurper. My JSONSlurper handles incoming data from several sources for convenience, so I have provided an edited copy below. Just install it as a device handler like you did for sqVS.
+Now install the JSONSlurper. My JSONSlurper handles incoming data from several sources for convenience, so I have provided an edited copy in the code files. Just install it as a device handler like you did for sqVS.
 The job of the JSONSlurper is to receive messages from the bridge (forwarded from the SBS) as JSON and raise events on the ST platform.
-________________________________________
-import groovy.json.JsonSlurper
-metadata {
-	definition (name: "LAN Slurper V2", namespace: "LeeC77", author: "Lee Charlton") {
-		capability "Sensor"
-attribute "hubInfo", "string"
-attribute "sbsresponse", "string"
-		}
-// define tiles use attribute name as device.
-// define the relationship between state and label.https://graph-eu01-euwest1.api.smartthings.com/ide/device/editor/65942be7-08eb-4105-b889-1af8b1daeccf#
-tiles (scale: 2){
-valueTile("hubInfo", "device.hubInfo", decoration: "flat", height: 2, width: 6, inactiveLabel: false, canChangeBackground: true) {
-state "hubInfo", label:'${currentValue}'
-} 
-}
-// Tile Layouts:
-main(["hubInfo"])
-}
-def parse(description) {
-def descMap = parseDescriptionAsMap(description)
-def body = new String(descMap["body"].decodeBase64())
-def slurper = new JsonSlurper()
-def result = slurper.parseText(body)
-//log.debug result
-/* section added to catch messages from bridge */
-	if (result.containsKey("SBSResponse")) {
-sendEvent(name:"hubInfo", value:result.SBSResponse)
- log.debug "SBServer response ${value:result.SBSResponse}"
- sendEvent (name: "sbsresponse", value:result.SBSResponse)
-}
-/***********************************************/
-def parseDescriptionAsMap(description) {
-description.split(",").inject([:]) { map, param ->
-def nameAndValue = param.split(":")
-if (nameAndValue.length == 2) map += [(nameAndValue[0].trim()):nameAndValue[1].trim()]
-else map += [(nameAndValue[0].trim()):""]
-	}
-}
-______________________________________________________________________
 
 So hopefully you will now have the following ST devices installed
   squeezeSwitch
