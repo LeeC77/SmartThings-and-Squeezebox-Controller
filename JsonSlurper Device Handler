@@ -1,0 +1,42 @@
+import groovy.json.JsonSlurper
+
+metadata {
+	definition (name: "LAN Slurper V2", namespace: "LeeC77", author: "Lee Charlton") {
+	capability "Sensor"
+    attribute "hubInfo", "string"
+    attribute "sbsresponse", "string"     
+	}
+    // define tiles use attribute name as device.
+    // define the relationship between state and label.https://graph-eu01-euwest1.api.smartthings.com/ide/device/editor/65942be7-08eb-4105-b889-1af8b1daeccf#
+	tiles (scale: 2){
+    valueTile("hubInfo", "device.hubInfo", decoration: "flat", height: 2, width: 6, inactiveLabel: false, canChangeBackground: true) {
+            state "hubInfo", label:'${currentValue}'//, icon: "st.Office.office5"
+    } 
+}
+	// Tile Layouts:
+	main(["hubInfo"])
+}
+def parse(description) {
+    def descMap = parseDescriptionAsMap(description)
+    def body = new String(descMap["body"].decodeBase64())
+    def slurper = new JsonSlurper()
+    def result = slurper.parseText(body)
+    //log.debug result
+
+/* section added to catch messages from bridge */
+	if (result.containsKey("SBSResponse")) {
+       sendEvent(name:"hubInfo", value:result.SBSResponse)
+       log.debug "SBServer response ${value:result.SBSResponse}"
+       sendEvent (name: "sbsresponse", value:result.SBSResponse)
+    }
+    return 
+}
+/***********************************************/
+def parseDescriptionAsMap(description) {
+	description.split(",").inject([:]) { map, param ->
+		def nameAndValue = param.split(":")
+        
+        if (nameAndValue.length == 2) map += [(nameAndValue[0].trim()):nameAndValue[1].trim()]
+        else map += [(nameAndValue[0].trim()):""]
+	}
+}
