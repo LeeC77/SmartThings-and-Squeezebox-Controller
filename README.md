@@ -6,10 +6,15 @@ Squeeze Box Controller
 Summary
 
 This project builds on work started by Mike Maxwell, additional functions have been added:
+
 HENDRE: Support for 2 additional plays a total of 5.
+
 LeeC77: Control of volume for each individual Squeeze Box.
+
 LeeC77: Status feedback (requires a bridge program).
+
 LeeC77: Player group synchronisation and unsync all.
+
 LeeC77: Play a playlist.
   
 If you use it please consider donating to my favourite charity: https://www.nowdonate.com/checkout/pv0j03m4s1o1x60o6bh2
@@ -22,9 +27,13 @@ Picture 1 (see Squeeze Box Controller.PDF)
 Installation
 
 So the coding is by no means polished and is probably a bit of mess, I only dabble, but it works for me and I hope it works for you.
+
 The installation is not simple, you will need to be confident with installing 3rd party Apps and device drivers in ST, plus a little knowledge of Linux, SBS settings and confidence in changing IP settings in your router.
-Please, first read the original thread for guidance on how to install, here’s the link to the original project at the ST Community: https://community.smartthings.com/t/squeezebox-and-smarthings/1622
+
+Please, first read the original thread for guidance on how to install, here’s the link to the original project at the ST Community: https://community.smartthings.com/t/squeezebox-and-smarthings/1622.
+
 You will need to know the MAC address of each of your players and the network address of your Squeezebox Server, how to install the sqVS, squeezeSwitch and squeezeController is covered in the original thread, it’s probably worth getting those installed first. The squeezeSwitch network ID is that of the bridge program and not the SBS, see below.
+
 Next is to install the bridge program ‘SBBridge.py’ on your RasPi or other Linux machine. I use Max2Play on a RasPi B. The bridge is written in Python. The job of the bridge is to receive commands from the squeezeSwitch and forward them onto the SBS to control the player and to receive replies from the SBS and send them back to a JSON Slurper, where they are forwarded to the ST platform. This allows the status buttons in to reflect completion of a command rather tha
 NOTE: The bridge expects to receive on port 39500, so this has to be HEX encoded as the device ID for squeezeSwitch.
 The bridge program also expects the squeeze box server to be on 192.168.1.85:9090. If yours is not then you will need to edit this. Similarly with the ST hub, it’s expected to be at 192.168.1.119
