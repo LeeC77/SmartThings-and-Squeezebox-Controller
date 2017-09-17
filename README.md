@@ -8,9 +8,13 @@ Summary
 This project builds on work started by Mike Maxwell, additional functions have been added:
 
 HENDRE: Support for 2 additional plays a total of 5.
+
 LeeC77: Control of volume for each individual Squeeze Box.
+
 LeeC77: Status feedback (requires a bridge program).
+
 LeeC77: Player group synchronisation and unsync all.
+
 LeeC77: Play a playlist.
   
 If you use it please consider donating to my favourite charity: https://www.nowdonate.com/checkout/pv0j03m4s1o1x60o6bh2
@@ -30,35 +34,52 @@ Please, first read the original thread for guidance on how to install, here’s 
 
 You will need to know the MAC address of each of your players and the network address of your Squeezebox Server, how to install the sqVS, squeezeSwitch and squeezeController is covered in the original thread, it’s probably worth getting those installed first. The squeezeSwitch network ID is that of the bridge program and not the SBS, see below.
 
-Next is to install the bridge program ‘SBBridge.py’ on your RasPi or other Linux machine. I use Max2Play on a RasPi B. The bridge is written in Python. The job of the bridge is to receive commands from the squeezeSwitch and forward them onto the SBS to control the player and to receive replies from the SBS and send them back to a JSON Slurper, where they are forwarded to the ST platform. This allows the status buttons in to reflect completion of a command rather tha
+Next is to install the bridge program ‘SBBridge.py’ on your RasPi or other Linux machine. I use Max2Play on a RasPi B. The bridge is written in Python. The job of the bridge is to receive commands from the squeezeSwitch and forward them onto the SBS to control the player and to receive replies from the SBS and send them back to a JSON Slurper, where they are forwarded to the ST platform. This allows the status buttons to reflect completion of a command rather than just switch blindly.
+
 NOTE: The bridge expects to receive on port 39500, so this has to be HEX encoded as the device ID for squeezeSwitch.
+
 The bridge program also expects the squeeze box server to be on 192.168.1.85:9090. If yours is not then you will need to edit this. Similarly with the ST hub, it’s expected to be at 192.168.1.119
 It’s a good idea to statically assign the IP address of your RasPi and ST Hub so that the addresses don’t move round on power cycle, I did this in my router.
-Make a note of the directory path and name of your bridge program. Mine was:
-/home/pi/winshare/SBBridge/ SBBridge.py
+
+Make a note of the directory path and name of your bridge program. Mine was: /home/pi/winshare/SBBridge/ SBBridge.py
+
 Now install the JSONSlurper. My JSONSlurper handles incoming data from several sources for convenience, so I have provided an edited copy in the code files. Just install it as a device handler like you did for sqVS.
 The job of the JSONSlurper is to receive messages from the bridge (forwarded from the SBS) as JSON and raise events on the ST platform.
 
-So hopefully you will now have the following ST devices installed
+So hopefully you will now have the following ST devices installed.
+
   squeezeSwitch
+  
   sqVS (one for each physical device, up to 5 are supported by the Smart)
+  
   JSONSLurper
+  
 You should also have the ST Smart App squeezeController installed.
+
 On the RasPi you should have the SBS and the bridge program.
-You will need to configure squeezeController and execute the bridge program to test it all out.
-Once you have got it working, the RasPi will need to be configured to run the bridge program at boot up after the SBS has started, here is how I did it.
+
+You will need to configure squeezeController and execute the bridge program to test it all out. Once you have got it working, the RasPi will need to be configured to run the bridge program at boot up after the SBS has started, here is how I did it.
 
 I made a script file, called in the background from rc.local, that delays the start-up of the bridge by 200 seconds. The file is /home/pi/winshare/SBBridge/BridgeStart.sh
+
 And simply contains the following script commands.
+
   #!/bin/sh
+  
   sleep 200
+  
   python /home/pi/winshare/SBBridge/SBBridge.py &
+  
 Don’t forget to give it executable privileges
 
 I then edited  rc.local to point at this start up script using the command: 
+
   sudo nano /etc/rc.local
+  
 I then added the line below towards the end and before the ‘exit 0’
+
   /home/pi/winshare/SBBridge/BridgeStart.sh &
+  
 Don’t forget you will need to modify your path and filenames to match your installation and also remember to use the ‘&’ at the end of the  rc.local entry and the shell script bridge path.
 
 Configuration
