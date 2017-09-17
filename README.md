@@ -6,11 +6,11 @@ Squeeze Box Controller
 Summary
 
 This project builds on work started by Mike Maxwell, additional functions have been added:
-  HENDRE: Support for 2 additional plays a total of 5 
-  LeeC77: Control of volume for each individual Squeeze Box
-  LeeC77: Status feedback (requires a bridge program)
-  LeeC77: Player group synchronisation and unsync all
-  LeeC77: Play a playlist.
+HENDRE: Support for 2 additional plays a total of 5 
+LeeC77: Control of volume for each individual Squeeze Box
+LeeC77: Status feedback (requires a bridge program)
+LeeC77: Player group synchronisation and unsync all
+LeeC77: Play a playlist.
   
 If you use it please consider donating to my favourite charity: https://www.nowdonate.com/checkout/pv0j03m4s1o1x60o6bh2
 
