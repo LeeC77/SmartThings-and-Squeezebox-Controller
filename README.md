@@ -17,7 +17,7 @@ If you use it please consider donating to my favourite charity: https://www.nowd
 
 The diagram below gives you a logical overview of the various components with a physical overlay on the right, this will help orientate you as to where the separate installations need to be. 
 
-Picture 1
+Picture 1 (see Squeeze Box Controller.PDF)
 
 Installation
 
@@ -100,27 +100,27 @@ Configuration
 The Smart App is used to tie it all together; configure the smart app to point at the devices you installed, the JSONSlurper, up to five players and the squeeze switch.
 The squeezeSwitch is where the majic happens; remember those MAC addresses from earlier, they need to go into the settings 1 for each player. See the figure below (I have masked my MAC addresses)
 
-Picture 2
+Picture 2 (see Squeeze Box Controller.PDF)
  
 It’s worth knowing which MAC address is what device, as in the next section you are going to organise your sync group.
 There are three groups of 5 players. The fist player in each group is the master player to which the others in the group are synchronised later. The master ie effectively the player that determines the playlist that persists during the sync process, so if you have a favourite player then assign this as the master.  See thr left hand figure below.
   
-Picture 3
+Picture 3 (see Squeeze Box Controller.PDF)
   
 You do not have to fill in every player if you only want a couple or so in the group, see the right hand figure above.
 Configuring playlists. The playlist must be stored in the playlists folder configured in the Basic Settings of your SBS, See figure below.
 
-Picture 4
+Picture 4 (see Squeeze Box Controller.PDF)
 
 The next section in the Smart App is where you add playlists, there are 5 in total, you need to type the name of your favourite playlists as they appear on your Squeeze Box player but escape encoded (as the SBS converts some characters to space. E.g. ‘_’). See the figure below.
  
-Picture 5
+Picture 5 (see Squeeze Box Controller.PDF)
  
 Using the App and Devices
 
 So each of the sqVS you installed should appear as a device, with on off and volume control. See below. The up and down arrows adjust the volume in equal steps.
 
-Picture 6
+Picture 6 (see Squeeze Box Controller.PDF)
  
 The squeezeSwitch device has a number of controls, described below left to right top to bottom.
   1.	Sync the connected play of group 1 any sync is applied in addition to any existing sync. When the icon is white it is possible to sync, when the icon is green, pressing will unsync all players (not just those in the group).
@@ -134,5 +134,5 @@ The squeezeSwitch device has a number of controls, described below left to right
   9.	On button, currently no function (it could be possible to use this to reboot the RasPi or SBS rescan of media)
   10.	Refresh, queries the on/off state status of the connected physical players and adjusts the sqVS device state to be in step.
 
-Picture 7
+Picture 7 (see Squeeze Box Controller.PDF)
  
