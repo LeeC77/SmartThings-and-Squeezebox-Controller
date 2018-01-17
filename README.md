@@ -32,18 +32,23 @@ The installation is not simple, you will need to be confident with installing 3r
 
 Please, first read the original thread for guidance on how to install, here’s the link to the original project at the ST Community: https://community.smartthings.com/t/squeezebox-and-smarthings/1622.
 
-You will need to know the MAC address of each of your players and the network address of your Squeezebox Server, how to install the sqVS, squeezeSwitch and squeezeController is covered in the original thread, it’s probably worth getting those installed first. The squeezeSwitch network ID is that of the bridge program and not the SBS, see below.
+You will need to know the MAC address of each of your players and the network address of your Squeezebox Server and the MAC of the device it is running on. How to install the sqVS, squeezeSwitch and squeezeController is covered in the original thread, it’s probably worth getting those installed first. The squeezeSwitch network ID is that of the bridge program and not the SBS, see below.
 
 Next is to install the bridge program ‘SBBridge.py’ on your RasPi or other Linux machine. I use Max2Play on a RasPi B. The bridge is written in Python. The job of the bridge is to receive commands from the squeezeSwitch and forward them onto the SBS to control the player and to receive replies from the SBS and send them back to a JSON Slurper, where they are forwarded to the ST platform. This allows the status buttons to reflect completion of a command rather than just switch blindly.
 
-NOTE: The bridge expects to receive on port 39500, so this has to be HEX encoded as the device ID for squeezeSwitch.
+NOTE: The bridge expects to receive on port 39500, so this has to be HEX encoded as the device Network ID for the squeezeSwitch, (e.g. C0A80155:9A4C for 192.168.1.85:39500)
 
 The bridge program also expects the squeeze box server to be on 192.168.1.85:9090. If yours is not then you will need to edit this. Similarly with the ST hub, it’s expected to be at 192.168.1.119
+
 It’s a good idea to statically assign the IP address of your RasPi and ST Hub so that the addresses don’t move round on power cycle, I did this in my router.
 
-Make a note of the directory path and name of your bridge program. Mine was: /home/pi/winshare/SBBridge/ SBBridge.py
+Make a note of the directory path and name of your bridge program. Mine was:
+/home/pi/winshare/SBBridge/ SBBridge.py
 
-Now install the JSONSlurper. My JSONSlurper handles incoming data from several sources for convenience, so I have provided an edited copy in the code files. Just install it as a device handler like you did for sqVS.
+Now install the JSONSlurper. Set its Network ID of the JSONSlurper to the MAC of the device running your bridge (RasPi) it should be all uppercase and without any octet separators (e.g.000A959D6816)
+
+My JSONSlurper handles incoming data from several sources for convenience, so I have provided an edited copy in the code files. Just install it as a device handler like you did for sqVS. 
+
 The job of the JSONSlurper is to receive messages from the bridge (forwarded from the SBS) as JSON and raise events on the ST platform.
 
 So hopefully you will now have the following ST devices installed.
