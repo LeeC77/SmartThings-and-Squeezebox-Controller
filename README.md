@@ -7,14 +7,14 @@ Summary
 
 This project builds on work started by Mike Maxwell, additional functions have been added:
 
-HENDRE: Support for 2 additional plays a total of 5 
-LeeC77: Control of volume for each individual Squeeze Box
-LeeC77: Status feedback (requires a bridge program)
-LeeC77: Player group synchronisation and unsync all
-LeeC77: Play a playlist.
-LeeC77: Track the (on off) status of all players when operated outside of SmartThings (Beta)
-Lee C77: Added a rescan music Library function
-LeeC77 : Renamed squeeze switch to squeeze server
+HENDRE: Support for 2 additional plays a total of 5   
+LeeC77: Control of volume for each individual Squeeze Box  
+LeeC77: Status feedback (requires a bridge program)  
+LeeC77: Player group synchronisation and unsync all  
+LeeC77: Play a playlist.  
+LeeC77: Track the (on off) status of all players when operated outside of SmartThings (Beta)  
+Lee C77: Added a rescan music Library function  
+LeeC77 : Renamed squeeze switch to squeeze server  
 
 If you use it please consider donating to my favourite charity: https://www.nowdonate.com/checkout/pv0j03m4s1o1x60o6bh2
 
@@ -23,7 +23,7 @@ The diagram below gives you a logical overview of the various components with a 
 
 Picture 1 (see Squeezebox Controller.PDF)
 
-Installation
+## Installation
 
 So the coding is by no means polished and is probably a bit of mess, I only dabble, but it works for me and I hope it works for you.
 The installation is not simple, you will need to be confident with installing 3rd party Apps and device drivers in ST, plus a little knowledge of Linux, SBS settings and confidence in changing IP settings in your router.
@@ -73,7 +73,7 @@ I then added the line below towards the end and before the ‘exit 0’
 
 Don’t forget you will need to modify your path and filenames to match your installation and also remember to use the ‘&’ at the end of the rc.local entry and the shell script bridge path.
 
-Configuration
+## Configuration
 
 The Smart App is used to tie it all together; configure the smart app to point at the devices you installed, the JSONSlurper, up to five players and the squeeze switch.
 
